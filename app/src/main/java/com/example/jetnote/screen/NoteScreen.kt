@@ -69,8 +69,8 @@ fun NoteScreen(
                 modifier = Modifier
                     .padding(8.dp),
                 text = title,
-                onValueChange = {
-                    title = it
+                onValueChange = {value->
+                    title = value
                 },
                 label = "Title"
             )
@@ -78,17 +78,19 @@ fun NoteScreen(
             NoteTextField(
                 modifier = Modifier,
                 text = description,
-                onValueChange = {
-                    description = it
+                onValueChange = {value->
+                    description = value
                 },
                 label = "Description"
             )
 
             Button(
                 onClick = {
-                    if (title.isNotEmpty() && description.isNotEmpty())
+                    if (title.isNotEmpty() && description.isNotEmpty()) {
+                        onAddNote(Note(title, description))
                         title = ""
-                    description = ""
+                        description = ""
+                    }
                 },
                 enabled = true,
                 shape = RoundedCornerShape(8.dp),
@@ -106,12 +108,16 @@ fun NoteScreen(
                 items(notes) { note ->
                     NoteRow(
                         note,
-                        modifier=Modifier.padding(8.dp),
-                        onNoteClicked = {}
+                        modifier = Modifier.padding(8.dp),
+                        onNoteClicked = {
+                            onRemoveNote(note)
+                        }
                     )
-                    Spacer(modifier = Modifier
-                        .height(4.dp)
-                        .fillMaxWidth())
+                    Spacer(
+                        modifier = Modifier
+                            .height(4.dp)
+                            .fillMaxWidth()
+                    )
                 }
             }
 
