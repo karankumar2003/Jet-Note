@@ -15,6 +15,8 @@ import com.example.jetnote.data.DataSource
 import com.example.jetnote.model.Note
 import com.example.jetnote.screen.NoteScreen
 import com.example.jetnote.ui.theme.JetNoteTheme
+import com.example.jetnote.viewModel.NoteViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,28 +28,30 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    val notes = remember {
-                        mutableStateListOf<Note>()
-                    }
-
-                    NoteScreen(
-                        notes,
-                        onAddNote =
-                        {
-                            notes.add(it)
-                        },
-                        onRemoveNote =
-                        {
-                            notes.remove(it)
-                        }
-                    )
+                    NoteApp()
                 }
             }
         }
     }
 }
 
-@Preview(showBackground = true)
+@Composable
+fun NoteApp(viewModel: NoteViewModel = viewModel()){
+    NoteScreen(
+        viewModel.loadNotes(),
+        onAddNote =
+        {
+            viewModel.addNote(it)
+        },
+        onRemoveNote =
+        {
+            viewModel.removeNote(it)
+        }
+    )
+}
+
+@Preview(showBackground = true,
+showSystemUi = true)
 @Composable
 fun AppPreview() {
     JetNoteTheme {
