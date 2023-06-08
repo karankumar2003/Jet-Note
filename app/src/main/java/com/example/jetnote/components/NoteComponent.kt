@@ -84,12 +84,12 @@ fun NoteRow(
                     .padding(horizontal = 8.dp, vertical = 4.dp), text = note.description,
                 style = MaterialTheme.typography.bodyMedium
             )
-            Text(
-                modifier = Modifier
-                    .padding(horizontal = 10.dp, vertical = 4.dp),
-                text = Utils.formatDate(note.time),
-                style = MaterialTheme.typography.labelSmall
-            )
+//            Text(
+//                modifier = Modifier
+//                    .padding(horizontal = 10.dp, vertical = 4.dp),
+//                text = Utils.formatDate(note.time),
+//                style = MaterialTheme.typography.labelSmall
+//            )
 
 
         }
