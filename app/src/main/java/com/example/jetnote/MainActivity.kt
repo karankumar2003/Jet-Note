@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -39,8 +40,9 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun NoteApp(viewModel: NoteViewModel = viewModel()){
+    val notes = viewModel.notes.collectAsState().value
     NoteScreen(
-        viewModel.loadNotes(),
+        notes,
         onAddNote =
         {
             viewModel.addNote(it)
